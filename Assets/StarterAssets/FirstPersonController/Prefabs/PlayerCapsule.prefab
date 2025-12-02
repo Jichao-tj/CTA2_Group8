@@ -462,15 +462,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6999999
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6999999
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -478,7 +478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.16499996
+      value: -0.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2687,6 +2687,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5904368647484489099}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8901438198064561993}
   m_SourcePrefab: {fileID: 100100000, guid: cc957c8bc5317f644ae528975b3e08df, type: 3}
 --- !u!4 &8542729598900730250 stripped
 Transform:
@@ -2720,3 +2723,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8901438198064561993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9062948770043470640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae27d57f5ca2d1b4e979319fd5abd40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5904368647484489099}
