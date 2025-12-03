@@ -5,13 +5,37 @@ public class UmbrellaController : MonoBehaviour
 {
     [SerializeField] Animator animator;
     bool isOpen = false;
-
+    bool isShooting = false;
+    [SerializeField] Camera fpsCamera;
+    [SerializeField] float range = 100.0f;
     void Update()
     {
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             isOpen = !isOpen;
             animator.SetBool("open", isOpen);
+        }
+
+        if(Input.GetMouseButtonDown(0) && !isOpen)
+        {
+            Shoot();
+            isShooting = true;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isShooting = false;
+        }
+
+        animator.SetBool("shooting", isShooting);
+    }
+
+    void Shoot()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
+        {
+            Debug.Log(hit.transform.name);
         }
     }
 }
