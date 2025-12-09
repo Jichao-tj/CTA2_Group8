@@ -15,7 +15,7 @@ public class UmbrellaController : MonoBehaviour
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] AudioSource fireSound;
     private AnimationClip fireClip;
-
+    [SerializeField] GameObject shield;
     void Start()
     {
         // Grab the clip once
@@ -52,6 +52,7 @@ public class UmbrellaController : MonoBehaviour
         }
 
         animator.SetBool("shooting", isShooting);
+        shield.SetActive(isOpen);
     }
 
     void Shoot()
