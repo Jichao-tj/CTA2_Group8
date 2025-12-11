@@ -1651,6 +1651,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8950383394258054482, guid: bb932425777d047c390e1ff7e103fb53, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 1976513695}
@@ -2250,6 +2254,10 @@ PrefabInstance:
       propertyPath: visionRange
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8950383394258054482, guid: bb932425777d047c390e1ff7e103fb53, type: 3}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: fireCooldown
       value: 0.5
@@ -3296,6 +3304,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8950383394258054482, guid: bb932425777d047c390e1ff7e103fb53, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: fireCooldown
       value: 0.8
       objectReference: {fileID: 0}
@@ -4204,6 +4216,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8950383394258054482, guid: bb932425777d047c390e1ff7e103fb53, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: fireCooldown
       value: 0.8
       objectReference: {fileID: 0}
@@ -4336,6 +4352,10 @@ PrefabInstance:
       propertyPath: visionRange
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8950383394258054482, guid: bb932425777d047c390e1ff7e103fb53, type: 3}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: fireCooldown
       value: 0.3

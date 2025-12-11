@@ -6,37 +6,50 @@ public class EnemyBullet : MonoBehaviour
     public float lifeTime = 5f;
     public int damage = 10;
 
+    private Vector3 lastPosition;
+
     void Start()
     {
-        Destroy(gameObject, lifeTime); // 防止飞太久不消失
+        lastPosition = transform.position;
+        Destroy(gameObject, lifeTime); 
     }
 
     void Update()
     {
-        // 直线飞行
-        transform.position += transform.forward * speed * Time.deltaTime;
-    }
+        // ----------------------------
+        // 1. Move bullet forward
+        // ----------------------------
+        Vector3 nextPosition = transform.position + transform.forward * speed * Time.deltaTime;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // 如果碰到玩家
-        if (other.CompareTag("Player"))
+        // ----------------------------
+        // 2. Raycast from last frame → this frame
+        //    This prevents tunneling (穿模)
+        // ----------------------------
+        if (Physics.Raycast(lastPosition, transform.forward, out RaycastHit hit, 
+                            Vector3.Distance(lastPosition, nextPosition)))
         {
-            // 玩家要有一个 PlayerHealth 脚本（你暂时用 Dummy）
-            var health = other.GetComponent<PlayerHealth>();
-            if (health != null)
+            // Hit Player
+            if (hit.collider.CompareTag("Player"))
             {
-                health.TakeDamage(damage);
+                var health = hit.collider.GetComponent<PlayerHealth>();
+                if (health != null)
+                {
+                    health.TakeDamage(damage);
+                }
             }
 
-            Destroy(gameObject);
+            // Destroy if hit anything except Enemy
+            if (!hit.collider.CompareTag("Enemy"))
+            {
+                Destroy(gameObject);
+                return;
+            }
         }
 
-        // 如果碰到其它物体（墙/地面）
-        if (!other.CompareTag("Enemy"))
-        {
-            Destroy(gameObject);
-            Debug.Log(other.tag);
-        }
+        // ----------------------------
+        // 3. Apply movement
+        // ----------------------------
+        transform.position = nextPosition;
+        lastPosition = transform.position;
     }
 }
