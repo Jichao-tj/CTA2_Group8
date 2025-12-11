@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1740776603760433696}
   - component: {fileID: 3707148268664328788}
   - component: {fileID: 6402501908484350513}
+  - component: {fileID: 5840619626236583242}
   m_Layer: 0
   m_Name: EnemyBasic
   m_TagString: Enemy
@@ -132,6 +133,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   patrolPointTolerance: 0.5
+--- !u!114 &5840619626236583242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720760959429422664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932bfbecc3f49044199dcff37e294c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
 --- !u!1 &8707605822986780576
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +171,7 @@ Transform:
   m_GameObject: {fileID: 8707605822986780576}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0.6}
+  m_LocalPosition: {x: 0.484, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
