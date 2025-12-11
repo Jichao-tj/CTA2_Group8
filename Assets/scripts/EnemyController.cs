@@ -3,40 +3,55 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public Transform target;              // 玩家
-    public Transform firePoint;           // 发射点
-    public GameObject bulletPrefab;       // 子弹预制体
+    [Header("References")]
+    public Transform target;              // player
+    public Transform firePoint;           // muzzle / firing origin
 
     [Header("Ranges")]
-    public float visionRange = 15f;       // 发现玩家的距离
-    public float attackRange = 5f;        // 停下来攻击的距离
+    public float visionRange = 15f;
+    public float attackRange = 5f;
 
     [Header("Attack")]
-    public float fireCooldown = 1.2f;     // 射击间隔
+    public float fireCooldown = 1.2f;     // seconds between shots
+    public int damage = 10;               // damage dealt per shot
 
     [Header("Patrol")]
-    public Transform[] patrolPoints;      // 巡逻点数组
-    public float patrolPointTolerance = 0.5f; // 接近巡逻点多少算“到达”
+    public Transform[] patrolPoints;
+    public float patrolPointTolerance = 0.5f;
+
+    [Header("Muzzle & Sound")]
+    public ParticleSystem muzzleFlashPrefab; // optional
+    public AudioClip fireClip;               // optional
+    [Range(0f, 1f)] public float fireVolume = 0.8f;
+
+    [Header("Raycast (instant hit)")]
+    public float rayRange = 50f;           // how far the shot reaches
+    public LayerMask hitMask = ~0;         // what layers the shot can hit (default: everything)
+    public ParticleSystem hitImpactPrefab; // optional impact VFX
 
     private float fireTimer = 0f;
     private NavMeshAgent agent;
-
+    private AudioSource audioSource;
     private int patrolIndex = 0;
 
-    private enum State
-    {
-        Patrolling,
-        Chasing,
-        Attacking
-    }
-
+    private enum State { Patrolling, Chasing, Attacking }
     private State currentState = State.Patrolling;
 
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        // 如果有巡逻点，从第一个开始
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.spatialBlend = 1f;
+        audioSource.playOnAwake = false;
+        audioSource.volume = fireVolume;
+    }
+
+    void Start()
+    {
         if (patrolPoints != null && patrolPoints.Length > 0)
         {
             currentState = State.Patrolling;
@@ -44,7 +59,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            currentState = State.Chasing; // 没巡逻点就直接盯着玩家
+            currentState = State.Chasing;
         }
     }
 
@@ -52,7 +67,6 @@ public class EnemyController : MonoBehaviour
     {
         if (target == null)
         {
-            // 没有玩家时就只巡逻
             if (currentState != State.Patrolling)
                 currentState = State.Patrolling;
         }
@@ -60,47 +74,28 @@ public class EnemyController : MonoBehaviour
         {
             float distToPlayer = Vector3.Distance(transform.position, target.position);
 
-            // 玩家超出视野 → 回到巡逻
             if (distToPlayer > visionRange)
-            {
                 currentState = State.Patrolling;
-            }
             else
-            {
-                // 在视野内，根据距离切换追击/攻击
-                if (distToPlayer > attackRange)
-                    currentState = State.Chasing;
-                else
-                    currentState = State.Attacking;
-            }
+                currentState = (distToPlayer > attackRange) ? State.Chasing : State.Attacking;
         }
 
         switch (currentState)
         {
-            case State.Patrolling:
-                HandlePatrol();
-                break;
-            case State.Chasing:
-                HandleChase();
-                break;
-            case State.Attacking:
-                HandleAttack();
-                break;
+            case State.Patrolling: HandlePatrol(); break;
+            case State.Chasing: HandleChase(); break;
+            case State.Attacking: HandleAttack(); break;
         }
     }
 
-    // ---------------- 巡逻逻辑 ----------------
+    // Patrol
     void HandlePatrol()
     {
-        if (agent == null || patrolPoints == null || patrolPoints.Length == 0)
-            return;
+        if (agent == null || patrolPoints == null || patrolPoints.Length == 0) return;
 
         agent.isStopped = false;
-
-        // 还在路上
         if (!agent.pathPending && agent.remainingDistance <= patrolPointTolerance)
         {
-            // 到达当前点 → 切下一个
             patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
             SetNextPatrolDestination();
         }
@@ -108,50 +103,100 @@ public class EnemyController : MonoBehaviour
 
     void SetNextPatrolDestination()
     {
-        if (agent == null || patrolPoints == null || patrolPoints.Length == 0)
-            return;
-
+        if (agent == null || patrolPoints == null || patrolPoints.Length == 0) return;
         agent.SetDestination(patrolPoints[patrolIndex].position);
     }
 
-    // ---------------- 追击逻辑 ----------------
+    // Chase
     void HandleChase()
     {
         if (agent == null || target == null) return;
-
         agent.isStopped = false;
         agent.SetDestination(target.position);
     }
 
-    // ---------------- 攻击逻辑 ----------------
+    // Attack
     void HandleAttack()
     {
-        if (agent != null)
-        {
-            agent.isStopped = true;
-        }
-
+        if (agent != null) agent.isStopped = true;
         if (target == null) return;
 
-        // 朝向玩家（只转水平）
+        // face player horizontally
         Vector3 dir = target.position - transform.position;
-        dir.y = 0;
-        if (dir != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(dir);
+        dir.y = 0f;
+        if (dir != Vector3.zero) transform.rotation = Quaternion.LookRotation(dir);
 
-        // 射击冷却
+        // fire cooldown
         fireTimer -= Time.deltaTime;
         if (fireTimer <= 0f)
         {
-            Shoot();
+            FireRay();
             fireTimer = fireCooldown;
         }
     }
 
-    void Shoot()
+    // ------------ Raycast-based fire (instant hit) ------------
+    void FireRay()
     {
-        if (firePoint == null || bulletPrefab == null) return;
+        // 1) muzzle flash + sound
+        if (muzzleFlashPrefab != null && firePoint != null)
+        {
+            ParticleSystem flash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+            var main = flash.main;
+            main.stopAction = ParticleSystemStopAction.Destroy;
+            flash.Play();
+            Destroy(flash.gameObject, 2f);
+        }
 
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (fireClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(fireClip, fireVolume);
+        }
+
+        // 2) raycast from muzzle
+        if (firePoint == null) return;
+
+        Ray ray = new Ray(firePoint.position, firePoint.forward);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, rayRange, hitMask, QueryTriggerInteraction.Ignore))
+        {
+            // optional: spawn impact VFX
+            if (hitImpactPrefab != null)
+            {
+                // orient the impact to surface normal
+                var impact = Instantiate(hitImpactPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                var main = impact.main;
+                main.stopAction = ParticleSystemStopAction.Destroy;
+                impact.Play();
+                Destroy(impact.gameObject, 2f);
+            }
+
+            // handle damage: Player
+            if (hitInfo.collider.CompareTag("Player"))
+            {
+                PlayerHealth ph = hitInfo.collider.GetComponent<PlayerHealth>();
+                if (ph != null)
+                {
+                    ph.TakeDamage(damage);
+                }
+            }
+            else
+            {
+                // if the hit object has some damageable component, you can call it here:
+                var dmg = hitInfo.collider.GetComponent<IDamageable>();
+                if (dmg != null)
+                {
+                    dmg.TakeDamage(damage);
+                }
+            }
+        }
+
+        // debug draw (optional, visible in Scene view)
+        Debug.DrawRay(firePoint.position, firePoint.forward * rayRange, Color.red, 0.2f);
     }
+}
+
+// Optional interface you can add to other objects to be damageable:
+public interface IDamageable
+{
+    void TakeDamage(int amount);
 }

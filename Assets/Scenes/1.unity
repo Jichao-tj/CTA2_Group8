@@ -367,6 +367,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 521823016}
     - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1328916853}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1712408213}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
       propertyPath: fireCooldown
       value: 0.3
       objectReference: {fileID: 0}
@@ -1647,6 +1659,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 521823016}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: visionRange
       value: 5
       objectReference: {fileID: 0}
@@ -1654,6 +1670,10 @@ PrefabInstance:
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 8950383394258054482, guid: bb932425777d047c390e1ff7e103fb53, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
@@ -1866,6 +1886,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 521823016}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1328916853}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
       propertyPath: visionRange
       value: 10
@@ -2247,6 +2279,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 521823016}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: attackRange
       value: 10
       objectReference: {fileID: 0}
@@ -2262,6 +2298,10 @@ PrefabInstance:
       propertyPath: fireCooldown
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
@@ -2359,6 +2399,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 521823016}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1328916853}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
       propertyPath: visionRange
       value: 15
@@ -2827,6 +2879,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 521823016}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1328916853}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
       propertyPath: visionRange
       value: 15
@@ -3300,6 +3364,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 521823016}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: visionRange
       value: 10
       objectReference: {fileID: 0}
@@ -3311,6 +3379,10 @@ PrefabInstance:
       propertyPath: fireCooldown
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
@@ -3528,6 +3600,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 521823016}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1328916853}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
       propertyPath: visionRange
       value: 10
@@ -3824,6 +3908,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 368a08cf5fa845d4ebb2a976ec2640cd, type: 3}
+--- !u!82 &1328916853 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1526140194148495001, guid: c2a70fae7baaf67489044c878bdf3ade, type: 3}
+  m_PrefabInstance: {fileID: 810477102}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1338215242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4208,6 +4297,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 521823016}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: attackRange
       value: 15
       objectReference: {fileID: 0}
@@ -4223,6 +4316,10 @@ PrefabInstance:
       propertyPath: fireCooldown
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
@@ -4345,6 +4442,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 521823016}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: attackRange
       value: 10
       objectReference: {fileID: 0}
@@ -4360,6 +4461,10 @@ PrefabInstance:
       propertyPath: fireCooldown
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 6402501908484350513, guid: 6503bae602771a54a8b65cad37fbc761, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
@@ -4457,6 +4562,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 521823016}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 16856e98a9ec90e4ca27c958b8965e2b, type: 3}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1328916853}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1712408213}
     - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
       propertyPath: fireCooldown
       value: 0.3
@@ -4650,6 +4767,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!198 &1712408213 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5043874671185133432, guid: c2a70fae7baaf67489044c878bdf3ade, type: 3}
+  m_PrefabInstance: {fileID: 810477102}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1751144978
 MonoBehaviour:
   m_ObjectHideFlags: 0
