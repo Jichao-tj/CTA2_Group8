@@ -11,7 +11,11 @@ namespace StarterAssets
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
-		[Header("Player")]
+		[SerializeField] AudioSource stepSound;
+        [SerializeField] private float stepInterval = 0.5f; // time between footsteps
+        private float stepTimer = 0f;
+
+        [Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
 		[Tooltip("Sprint speed of the character in m/s")]
@@ -192,11 +196,28 @@ namespace StarterAssets
 			{
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+		
 			}
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-		}
+
+            if (_input.move != Vector2.zero && _controller.isGrounded)
+            {
+                stepTimer -= Time.deltaTime;
+                if (stepTimer <= 0f)
+                {
+                    stepSound.Play();
+                    stepTimer = stepInterval / (_speed > 0f ? (_speed / MoveSpeed) : 1f);
+                }
+            }
+            else
+            {
+                // reset timer when not moving
+                stepTimer = stepInterval; 
+                if (stepSound.isPlaying) stepSound.Stop(); 
+            }
+        }
 
 		private void JumpAndGravity()
 		{

@@ -14,6 +14,7 @@ public class UmbrellaController : MonoBehaviour
     float nextTimeToFire = 0f;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] AudioSource fireSound;
+    [SerializeField] AudioSource openClose;
     private AnimationClip fireClip;
     [SerializeField] GameObject shield;
     void Start()
@@ -33,6 +34,7 @@ public class UmbrellaController : MonoBehaviour
         {
             isOpen = !isOpen;
             animator.SetBool("open", isOpen);
+            openClose.Play();
         }
 
         if(Input.GetMouseButton(0) && !isOpen)
