@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,13 +11,22 @@ public class GameManager : MonoBehaviour
 
     bool gameEnded = false;
 
+    float maxHealth;
+    float currentHealth;
+
     [SerializeField] GameObject winScreen;
     [SerializeField] GameObject loseScreen;
     [SerializeField] TextMeshProUGUI enemyProgressText;
+    [SerializeField] Image fillImage;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    void Start()
+    {
+
     }
 
     public void RegisterEnemy()
@@ -47,6 +57,19 @@ public class GameManager : MonoBehaviour
         {
             LoseGame();
         }
+    }
+
+    public void SetInitialHealth(int value)
+    {
+        maxHealth = value;
+        currentHealth = maxHealth;
+        fillImage.fillAmount = currentHealth/maxHealth;
+    }
+
+    public void UpdateHealth(int value)
+    {
+        currentHealth = value;
+        fillImage.fillAmount = currentHealth/maxHealth;
     }
 
     void WinGame()
