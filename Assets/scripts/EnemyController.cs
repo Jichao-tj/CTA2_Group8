@@ -75,9 +75,24 @@ public class EnemyController : MonoBehaviour
             float distToPlayer = Vector3.Distance(transform.position, target.position);
 
             if (distToPlayer > visionRange)
+            {
                 currentState = State.Patrolling;
+            }
             else
-                currentState = (distToPlayer > attackRange) ? State.Chasing : State.Attacking;
+            {
+                // Only set Attacking if within attackRange AND has line of sight.
+                // If LOS is blocked, treat as Chasing (or Patrolling depending on your design).
+                bool hasLOS = HasLineOfSight();
+                if (!hasLOS)
+                {
+                    // Player is in range but behind cover -> don't attack
+                    currentState = State.Chasing;
+                }
+                else
+                {
+                    currentState = (distToPlayer > attackRange) ? State.Chasing : State.Attacking;
+                }
+            }
         }
 
         switch (currentState)
@@ -125,6 +140,14 @@ public class EnemyController : MonoBehaviour
         Vector3 dir = target.position - transform.position;
         dir.y = 0f;
         if (dir != Vector3.zero) transform.rotation = Quaternion.LookRotation(dir);
+
+        // Confirm LOS before firing (in case something moved in between)
+        if (!HasLineOfSight())
+        {
+            // lose sight -> switch to chase
+            currentState = State.Chasing;
+            return;
+        }
 
         // fire cooldown
         fireTimer -= Time.deltaTime;
@@ -192,6 +215,32 @@ public class EnemyController : MonoBehaviour
 
         // debug draw (optional, visible in Scene view)
         Debug.DrawRay(firePoint.position, firePoint.forward * rayRange, Color.red, 0.2f);
+    }
+
+    // --------- Line-of-sight (LOS) check ----------
+    // Returns true if a ray from firePoint (or from enemy if firePoint missing) directly hits the player without obstruction
+    bool HasLineOfSight()
+    {
+        if (target == null) return false;
+
+        Vector3 origin = (firePoint != null) ? firePoint.position : transform.position;
+        Vector3 dir = (target.position - origin).normalized;
+        float distance = Vector3.Distance(origin, target.position);
+
+        // Use visionRange as max distance for LOS check
+        float maxDist = Mathf.Min(distance, visionRange);
+
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, maxDist, hitMask, QueryTriggerInteraction.Ignore))
+        {
+            // If the first thing hit is the player, we have LOS
+            if (hit.collider.CompareTag("Player"))
+                return true;
+            else
+                return false;
+        }
+
+        // Nothing hit — treat as no LOS
+        return false;
     }
 }
 

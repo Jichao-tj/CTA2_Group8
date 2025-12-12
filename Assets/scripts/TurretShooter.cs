@@ -15,16 +15,27 @@ public class TurretShooter : MonoBehaviour
     [Header("Detection")]
     public float visionRange = 20f;       // Detection range
     public float maxViewAngle = 120f;     // View angle (0~360)
+    public bool debugLOS = false;         // draw LOS debug lines in scene view
 
     [Header("Attack")]
     public float fireCooldown = 1.0f;     // Fire interval
     public float rotateSpeed = 5f;        // Smooth rotation speed
     public float rayRange = 50f;          // Raycast distance
-    public LayerMask hitMask;             // Layers the ray can hit
+    public LayerMask hitMask;             // Layers the ray can hit (ensure Player & Shield layers included)
     public int damage = 10;               // Damage to player
     public ParticleSystem hitImpactPrefab; // Hit effect on walls, player, etc.
 
     private float fireTimer = 0f;
+
+    void Start()
+    {
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+                audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
 
     void Update()
     {
@@ -48,6 +59,10 @@ public class TurretShooter : MonoBehaviour
         if (angle > maxViewAngle * 0.5f)
             return;
 
+        // NEW: LOS check that accepts Player OR Shield as first hit
+        if (!HasLineOfSightToPlayerOrShield())
+            return;
+
         // Rotate smoothly toward player
         Quaternion targetRot = Quaternion.LookRotation(toTargetFlat.normalized);
         gunHead.rotation = Quaternion.Slerp(gunHead.rotation, targetRot, rotateSpeed * Time.deltaTime);
@@ -61,28 +76,56 @@ public class TurretShooter : MonoBehaviour
         }
     }
 
+    // LOS that accepts Player OR Shield as valid first hit
+    bool HasLineOfSightToPlayerOrShield()
+    {
+        if (target == null || firePoint == null) return false;
+
+        Vector3 origin = firePoint.position;
+        Vector3 dirVec = target.position - origin;
+        float distanceToTarget = dirVec.magnitude;
+        if (distanceToTarget < 0.001f) return false;
+        Vector3 dir = dirVec / distanceToTarget;
+
+        float maxDist = Mathf.Min(distanceToTarget, visionRange);
+
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, maxDist, hitMask, QueryTriggerInteraction.Ignore))
+        {
+            if (debugLOS)
+                Debug.DrawLine(origin, hit.point, Color.yellow, 0.05f);
+
+            // Accept if the first thing hit is Player or Shield
+            return hit.collider.CompareTag("Player") || hit.collider.CompareTag("Shield");
+        }
+        else
+        {
+            if (debugLOS)
+                Debug.DrawLine(origin, origin + dir * maxDist, Color.gray, 0.05f);
+            return false;
+        }
+    }
+
     void FireRaycast()
     {
-        // 1. Play muzzle flash at gunHead
-        if (muzzleFlash != null)
+        // Play muzzle flash (attach to gunHead so it follows rotation)
+        if (muzzleFlash != null && gunHead != null)
         {
             ParticleSystem flash = Instantiate(muzzleFlash, firePoint.position, firePoint.rotation, gunHead);
             flash.Play();
             Destroy(flash.gameObject, 1f);
         }
 
-        // 2. Play fire sound
+        // Play fire sound
         if (audioSource != null && fireClip != null)
         {
             audioSource.PlayOneShot(fireClip);
         }
 
-        // 3. Raycast to simulate hit-scan bullet
+        // Raycast to simulate hit-scan bullet
         Ray ray = new Ray(firePoint.position, firePoint.forward);
-
         if (Physics.Raycast(ray, out RaycastHit hitInfo, rayRange, hitMask, QueryTriggerInteraction.Ignore))
         {
-            // Spawn hit effect
+            // Spawn hit effect (for shield/player/wall)
             if (hitImpactPrefab != null)
             {
                 var impact = Instantiate(hitImpactPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
@@ -90,7 +133,25 @@ public class TurretShooter : MonoBehaviour
                 Destroy(impact.gameObject, 2f);
             }
 
-            // Damage player
+            // If hit Shield: call shield handler if available; DO NOT directly damage Player
+            if (hitInfo.collider.CompareTag("Shield"))
+            {
+                var shieldComponent = hitInfo.collider.GetComponentInParent<MonoBehaviour>(); // try find script on parent
+                if (shieldComponent != null)
+                {
+                    // Try to call OnShieldHit if present (safe reflection)
+                    var method = shieldComponent.GetType().GetMethod("OnShieldHit");
+                    if (method != null)
+                    {
+                        // OnShieldHit(Vector3 hitPoint, Vector3 hitNormal, Transform attacker)
+                        method.Invoke(shieldComponent, new object[] { hitInfo.point, hitInfo.normal, this.transform });
+                    }
+                }
+                // Shield blocks damage; turret still fired (visual + sound)
+                return;
+            }
+
+            // If hit Player directly: apply damage
             if (hitInfo.collider.CompareTag("Player"))
             {
                 PlayerHealth ph = hitInfo.collider.GetComponent<PlayerHealth>();
@@ -98,10 +159,19 @@ public class TurretShooter : MonoBehaviour
                 {
                     ph.TakeDamage(damage);
                 }
+                return;
+            }
+
+            // else: hit environment/destructible — apply IDamageable if present
+            var dmg = hitInfo.collider.GetComponent<IDamageable>();
+            if (dmg != null)
+            {
+                dmg.TakeDamage(damage);
             }
         }
 
         // Optional: Debug ray
-        Debug.DrawRay(firePoint.position, firePoint.forward * rayRange, Color.red, 0.2f);
+        if (debugLOS)
+            Debug.DrawRay(firePoint.position, firePoint.forward * rayRange, Color.red, 0.2f);
     }
 }

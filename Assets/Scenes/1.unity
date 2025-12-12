@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: fireCooldown
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 2302443604875004323, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -4352,6 +4356,10 @@ PrefabInstance:
       propertyPath: fireCooldown
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 2302443604875004323, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6
@@ -4716,6 +4724,10 @@ PrefabInstance:
       propertyPath: fireCooldown
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4950,6 +4962,10 @@ PrefabInstance:
     - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
       propertyPath: fireCooldown
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5548,6 +5564,10 @@ PrefabInstance:
     - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
       propertyPath: visionRange
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 313679392932299847, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2302443604875004323, guid: 40b267136c7039c41b96dd358f9d42ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6176,6 +6196,10 @@ PrefabInstance:
     - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
       propertyPath: fireCooldown
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467533358199470636, guid: a021a3b6dcabb0f47af60ed5e9ba7f22, type: 3}
+      propertyPath: hitMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
