@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
+            GameManager.Instance.PlayerDied();
             Debug.Log("Player dead!");
         }
     }
